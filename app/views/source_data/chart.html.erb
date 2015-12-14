@@ -1,0 +1,224 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />
+        <!--  <div class="col-lg-6">
+        <img alt="image" src="<%= image_url 'l3.jpg' %>" style="margin-left:-15px;" />
+        </div>
+        <div class="col-lg-2">
+        <img alt="image" src="<%= image_url 'l2.jpg' %>" style="align:center;"/>
+        </div>
+        <div class="col-lg-4">
+            <img alt="image" src="<%= image_url 'l1.jpg' %>" style="margin-top:15px;margin-left:220px;" />
+        </div>  -->
+        
+        <div class="clearfix"></div>
+        <ol class="breadcrumb">
+            <li class="active">
+                <a href="<%= url_for :controller => 'source_data', :action => 'chart' %>"><strong>Dashboard</strong></a>
+            </li>
+        </ol>
+        
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+     <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>FACTORY Database</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_factory"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'factorys', :action => 'show'%>" target="_blank">&nbsp;&nbsp; Total(<%= @db_facttotal.inspect %>)</a></div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                         <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'factorys', :action => 'show'%>" target="_blank">&nbsp;&nbsp;No.of Factories(<%= @db_factory.inspect %>)</a></div>
+                    </div>                    
+                </div>              
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>MADE IN KSA Database</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_ksa"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;&nbsp;Total (<%= @db_classtotal.inspect %>)</div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;&nbsp;No.of Items (<%= @db_classification.inspect %>)</div>
+                    </div>                    
+                </div>       
+            </div>
+        </div>
+    </div> 
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5> CMM Database</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_cmm"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#ffff;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source' ,:TYPE => 'all' %>" target="_blank">&nbsp;&nbsp;Total NSN(<%= @db_cmm.inspect  %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#00FFFF;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'INV' %>" target="_blank">&nbsp;&nbsp;Invalid NSN(<%= @db_inv.inspect %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'LINV' %>" target="_blank">&nbsp;&nbsp;Local NSN(<%= @db_locinv.inspect %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'nsnlist' %>" target="_blank">&nbsp;&nbsp;Official NSN - USA(<%= @db_match.inspect %>)</a></div><br>
+                         <div class="pull-left" style="width:15px;height:15px;;background-color:#FF1493;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'USNV' %>" target="_blank">&nbsp;&nbsp;Non-Official NSN - USA(<%= @db_nonoff.inspect %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#66AA01;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'GMV' %>" target="_blank">&nbsp;&nbsp;Official NSN - DEU(<%= @db_matchgmv.inspect %>)</a></div><br>
+                        <!-- <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'nsnlist' %>" target="_blank">-Other Countries (<%= @db_other.inspect %>)</a></div><br>
+ -->
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#FF7F50;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'FRV' %>" target="_blank">&nbsp;&nbsp;Official NSN - FRA(<%= @db_matchfrv.inspect %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#0199C6;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'UKV' %>" target="_blank">&nbsp;&nbsp;Official NSN - GBR(<%= @db_matchukv.inspect %>)</a></div><br>
+                         <div class="pull-left" style="width:15px;height:15px;;background-color:#990199;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'GMNV' %>" target="_blank">&nbsp;&nbsp;Non-Official NSN - DEU(<%= @db_nonoffgmv.inspect %>)</a></div><br>
+                        
+                         <div class="pull-left" style="width:15px;height:15px;;background-color:#DB7093;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'FRNV' %>" target="_blank">&nbsp;&nbsp;Non-Official NSN - FRA(<%= @db_nonoffrnv.inspect %>)</a></div><br>
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DEB887;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => 'UKNV' %>" target="_blank">&nbsp;&nbsp;Non-Official NSN - GBR(<%= @db_nonoffuk.inspect %>)</a></div><br>
+                         <div class="pull-left" style="width:15px;height:15px;;background-color:#8B4513;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => 'source',:TYPE => '' %>" target="_blank">&nbsp;&nbsp;Other Countries NSN(<%= @db_other.inspect %>)</a></div>
+                        
+                    </div>                    
+                </div>    
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>EXCEPTION Database</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_excemption"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;&nbsp;Total(<%= @db_extotal.inspect %>)</div>
+                    </div>  
+                    <div class="col-md-6 ">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;&nbsp;No.of Items(<%= @db_exclass.inspect %>)</div>
+                    </div>                    
+                </div>   
+            </div>
+        </div>
+    </div> 
+</div>
+</div>
+
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+    $("#db_cmm").sparkline(['<%= @db_inv.inspect %>','<%= @db_locinv.inspect %>','<%= @db_match.inspect %>','<%= @db_nonoff.inspect %>','<%= @db_matchgmv.inspect %>','<%= @db_matchfrv.inspect %>','<%= @db_matchukv.inspect %>','<%= @db_nonoffgmv.inspect %>','<%= @db_nonoffrnv.inspect %>','<%= @db_nonoffuk.inspect %>','<%= @db_other.inspect %>'], {
+        type: 'pie',
+        height: '250px',
+        sliceColors: ['#00FFFF','#3366cc','#dc3912','#FF1493','#66aa00','#FF7F50','#0099c6','#990099','#DB7093','#DEB887','#8B4513'],
+        //sliceColors: ['#1ab394','#B5B8CF'],
+        highlight: "#1ab394",
+        scaleBackdropColor: "rgba(255,255,255,0.75)",
+    });  
+    
+    $("#db_factory").sparkline(['<%= @db_factbalance.inspect %>', '<%= @db_factory.inspect %>'], {
+        type: 'pie',
+         height: '250px',
+         sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099','#B0C4DE'],
+        //sliceColors: ['#1ab394','#B5B8CF'],
+       highlight: "#1ab394",
+        scaleBackdropColor: "rgba(255,255,255,0.75)",
+
+     });
+
+    $("#db_ksa").sparkline(['<%= @db_classbalance.inspect %>', '<%= @db_classification.inspect %>'], {
+       type: 'pie',
+       height: '250px',
+        sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+    //     //sliceColors: ['#1ab394','#B5B8CF'],
+         highlight: "#1ab394",
+         scaleBackdropColor: "rgba(255,255,255,0.75)",
+     }); 
+
+     $("#db_excemption").sparkline(['<%= @db_exbalance.inspect %>', '<%= @db_exclass.inspect %>'], {
+        type: 'pie',
+       height: '250px',
+       sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+    //     //sliceColors: ['#1ab394','#B5B8CF'],
+        highlight: "#1ab394",
+        scaleBackdropColor: "rgba(255,255,255,0.75)",
+    });   
+});
+
+</script>
+
+<% end %>

@@ -1,0 +1,3 @@
+Dear Sir,
+In this project we are accessing the database remotely. we provide the ip of our remote system. so please change the datebase host and username in the database.yml page as per your host
+thankyou

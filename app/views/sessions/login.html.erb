@@ -1,0 +1,45 @@
+﻿    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+            <% if notice %>
+                <div class="col-lg-12">
+                    <div class="alert alert-danger alert-dismissable">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <p id="notice"><%= notice %></p>
+                    </div>
+                </div>
+            <% end %>
+            <div class="col-md-6">
+                <h2 class="font-bold">Ministry of Commerece and Industries</h2>
+
+                <p>
+                    Welcome to Ministry of Commerece and Industries Please provide your username and password to login into the application
+                </p>
+
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                 <h1>Log in</h1>
+                <%= form_for(:session, url: login_path) do |f| %>
+                    <div class="form-group">
+                        <%= f.text_field :username, class: 'form-control' ,:placeholder => "Username" %>
+                    </div>
+                    <div class="form-group">
+                        <%= f.password_field :password, class: 'form-control' ,:placeholder => "password"%>
+                    </div>
+                    <%= f.submit "Log in", class: "btn btn-primary block full-width m-b" %>
+                <% end %>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                Copyright eccma.org
+            </div>
+            <div class="col-md-6 text-right">
+                <small>© 2015-2016</small>
+            </div>
+        </div>
+    </div>
+
+

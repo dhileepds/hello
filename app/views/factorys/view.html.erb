@@ -1,0 +1,228 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />
+        <!--  <div class="col-lg-6">
+        <img alt="image" src="<%= image_url 'l3.jpg' %>" style="margin-left:-15px;" />
+        </div>
+        <div class="col-lg-2">
+        <img alt="image" src="<%= image_url 'l2.jpg' %>" style="align:center;"/>
+        </div>
+        <div class="col-lg-4">
+            <img alt="image" src="<%= image_url 'l1.jpg' %>" style="margin-top:15px;margin-left:220px;" />
+        </div>  -->
+        
+        <div class="clearfix"></div>
+         <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'source_data', :action => 'chart' %>">Dashboard</a>
+        </li>
+        <li>
+             <a href="<%= url_for :controller => 'factorys', :action => 'show' %>">Factory Searcher</a>
+        </li>
+        <li class="active">
+            <strong>View</strong>
+        </li>
+    </ol>
+        
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <h2>View</h2>
+                <table class="table table-bordered">
+                     <% @viewfpkid.each do |v| %> 
+                        <tr> 
+                            <th>FPKID</th>
+                            <td><%= v.FPKID %> </td>
+                        </tr>
+                        <tr> 
+                            <th>Factory_ID</th>
+                            <td><%= v.Factory_ID %> </td>
+                        </tr>
+                        <tr> 
+                            <th>FACTORY_NAME</th>
+                            <td><%= v.Factory_Name %> </td>
+                        </tr>
+                        <tr> 
+                            <th>FACTORY_WEBSITE</th>
+                            <td><%= v.Factory_Website %> </td>
+                        </tr>
+                        <tr> 
+                            <th>PHYSICAL_ADDRESS</th>
+                            <td><%= v.Physical_Address %> </td>
+                        </tr>
+                        <tr> 
+                            <th>CITY</th>
+                            <td><%= v.City %> </td>
+                        </tr>
+                        <tr> 
+                            <th>DISTRICT</th>
+                            <td><%= v.District %> </td>
+                        </tr>
+                        <tr> 
+                            <th>POSTAL_CODE</th>
+                            <td><%= v.Postal_Code %> </td>
+                        </tr>
+                        <tr> 
+                            <th>POB</th>
+                            <td><%= v.POB %> </td>
+                        </tr>
+                        <tr> 
+                            <th>POB_CITY</th>
+                            <td><%= v.POB_City %> </td>
+                        </tr>
+                        <tr> 
+                            <th>POB_PC</th>
+                            <td><%= v.POB_PC %> </td>
+                        </tr>
+                        <tr> 
+                            <th>STATE_PROVINCE_CODE</th>
+                            <td><%= v.State_Province_code %> </td>
+                        </tr>
+                        <tr> 
+                            <th>LICENSE_STATUS</th>
+                            <td><%= v.License_Status %> </td>
+                        </tr>
+                        <tr> 
+                        
+                         <th><% if v.Ownership_Org_ID=='NULL' || v.Ownership_Org_ID=='' %>
+                             <% OWNERSHIP_ORG_ID %>
+                             <% else %>
+                             <%= link_to "OWNERSHIP_ORG_ID", {:controller => :factorys,:action => :org,:OrganizationID => v.Ownership_Org_ID} %>
+                        <% end %>
+                        </th>                          
+                        <td><%= v.Ownership_Org_ID %> </td>
+                        </tr>
+                        <tr> 
+                            <th>RESPONSIBLE_PARTY_NAME</th>
+                            <td><%= v.Responsible_Party_Name %> </td>
+                        </tr>
+                        <tr> 
+                            <th>RP_TITLE</th>
+                            <td><%= v.RP_title %> </td>
+                        </tr>
+                        <tr> 
+                            <th>RP_EMAIL</th>
+                            <td><%= v.RP_Email %> </td>
+                        </tr>
+                        <tr> 
+                            <th>TP_NAME</th>
+                            <td><%= v.TP_Name %> </td>
+                        </tr>
+                        <tr> 
+                            <th>TP_TITLE</th>
+                            <td><%= v.TP_Title %> </td>
+                        </tr>
+                         <tr> 
+                            <th>TP_EMAIL</th>
+                            <td><%= v.TP_Email %> </td>
+                        </tr>
+                         <tr> 
+                            <th>CONSTRUCTION_STATUS</th>
+                            <td><%= v.Construction_Status %> </td>
+                        </tr>
+                         <tr> 
+                            <th>LAND_TYPE</th>
+                            <td><%= v.Land_Type %> </td>
+                        </tr>
+                         <tr> 
+                            <th>SITE_LAND_AREA_SQM</th>
+                            <td><%= v.Site_Land_Area_SQM %> </td>
+                        </tr>
+                         <tr> 
+                            <th>INDUSTRIAL_CITY</th>
+                            <td><%= v.Industrial_city %> </td>
+                        </tr>
+                         <tr> 
+                            <th>IND_LAND_NO</th>
+                            <td><%= v.Ind_Land_No %> </td>
+                        </tr>
+                         <tr> 
+                            <th>GPS_COORDINATES</th>
+                            <td><%= v.GPS_Coordinates %> </td>
+                        </tr>
+                         <tr> 
+                            <th>BLOCK_NO</th>
+                            <td><%= v.Block_No %> </td>
+                        </tr>
+                         <tr> 
+                            <th>NO_of_EMPLOYEES</th>
+                            <td><%= v.No_of_Employees %> </td>
+                        </tr>
+                         <tr> 
+                            <th>LANGUAGE</th>
+                            <td><%= v.Language %> </td>
+                        </tr>
+                         <tr> 
+                            <th>TMP_FILE_SOURCE</th>
+                            <td><%= v.tmp_file_source %> </td>
+                        </tr>
+                       
+                </table>
+                <table>
+                <tr>
+                <td>
+                <%= button_to "PHONE" , {:controller => :factorys,:action => :phone,:Factory_ID => v.Factory_ID
+} %>
+                   </td>
+                   <td>
+                <%= button_to "MFG CAPACITY" ,{:controller => :factorys,:action => :mfg_capacity,:Factory_ID => v.Factory_ID} %>
+                </td>
+                </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    var updateOutput = function (e) {
+        var list = e.length ? e : $(e.target),
+                output = list.data('output');
+        if (window.JSON) {
+            output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
+    };
+    // activate Nestable for list 1
+    $('#nestable').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // activate Nestable for list 2
+    $('#nestable2').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // output initial serialised data
+    updateOutput($('#nestable').data('output', $('#nestable-output')));
+    updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+    $('#nestable-menu').on('click', function (e) {
+        var target = $(e.target),
+                action = target.data('action');
+        if (action === 'expand-all') {
+            $('.dd').nestable('expandAll');
+        }
+        if (action === 'collapse-all') {
+            $('.dd').nestable('collapseAll');
+        }
+    });
+
+});
+
+</script>
+
+<% end %>
+ <% end %>
+ 

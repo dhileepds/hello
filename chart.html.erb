@@ -1,0 +1,203 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />
+        <!--  <div class="col-lg-6">
+        <img alt="image" src="<%= image_url 'l3.jpg' %>" style="margin-left:-15px;" />
+        </div>
+        <div class="col-lg-2">
+        <img alt="image" src="<%= image_url 'l2.jpg' %>" style="align:center;"/>
+        </div>
+        <div class="col-lg-4">
+            <img alt="image" src="<%= image_url 'l1.jpg' %>" style="margin-top:15px;margin-left:220px;" />
+        </div>  -->
+        
+        <div class="clearfix"></div>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'cmms', :action => 'nsnlist' %>">Dashboard</a>
+            </li>
+            <li class="active">
+                <strong>NSN Search</strong>
+            </li>
+        </ol>
+        
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Database Name: CMM </h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_cmm"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => ''%>" target="_blank">-Total (<%= @ds_cmm.inspect %>)</a></div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'source_data', :action => '' %>" target="_blank">-Occupied (<%= @db_cmm.inspect %>)</a></div>
+                    </div>                    
+                </div>    
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Database Name:FACTORY</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_factory"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'factorys', :action => 'show'%>" target="_blank">-Total (<%= @ds_factory.inspect %>)</a></div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                         <div class="pull-left"> &nbsp;<a href="<%= url_for :controller => 'factorys', :action => 'show'%>" target="_blank">-Total (<%= @db_factory.inspect %>)</a></div>
+                    </div>                    
+                </div>              
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Database Name: MADE IN KSA </h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_asegment"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;-Total (<%= @ds_asegment.inspect %>)</div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;-Occupied (<%= @db_asegment.inspect %>)</div>
+                    </div>                    
+                </div>       
+            </div>
+        </div>
+    </div> -->
+  <!--   <div class="col-lg-4">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>Database Name: EXCEPTION </h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>                    
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content text-center h-200">
+                <span id="db_csegment"></span>
+                <div class="row" style="padding-top:10px;">
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#3366CC;"></div>
+                        <div class="pull-left"> &nbsp;-Total (<%= @ds_csegment.inspect %>)</div>
+                    </div>  
+                    <div class="col-md-6">
+                        <div class="pull-left" style="width:15px;height:15px;;background-color:#DC3912;"></div>
+                        <div class="pull-left"> &nbsp;-Occupied (<%= @db_csegment.inspect %>)</div>
+                    </div>                    
+                </div>   
+            </div>
+        </div>
+    </div> -->
+</div>
+</div>
+
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+    $("#db_cmm").sparkline(['<%= @ds_cmm.inspect %>', '<%= @db_cmm.inspect %>'], {
+        type: 'pie',
+        height: '250px',
+        sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+        //sliceColors: ['#1ab394','#B5B8CF'],
+        highlight: "#1ab394",
+        scaleBackdropColor: "rgba(255,255,255,0.75)",
+    });  
+    
+    // $("#db_factory").sparkline(['<%= @ds_factory.inspect %>', '<%= @db_factory.inspect %>'], {
+    //     type: 'pie',
+    //     height: '250px',
+    //     sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+    //     //sliceColors: ['#1ab394','#B5B8CF'],
+    //     highlight: "#1ab394",
+    //     scaleBackdropColor: "rgba(255,255,255,0.75)",
+
+    // });
+
+    // $("#db_asegment").sparkline(['<%= @ds_asegment.inspect %>', '<%= @db_asegment.inspect %>'], {
+    //     type: 'pie',
+    //     height: '250px',
+    //     sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+    //     //sliceColors: ['#1ab394','#B5B8CF'],
+    //     highlight: "#1ab394",
+    //     scaleBackdropColor: "rgba(255,255,255,0.75)",
+    // }); 
+
+    // $("#db_csegment").sparkline(['<%= @ds_csegment.inspect %>', '<%= @db_csegment.inspect %>'], {
+    //     type: 'pie',
+    //     height: '250px',
+    //     sliceColors: ['#3366cc','#dc3912','#ff9900','#109618','#66aa00','#dd4477','#0099c6','#990099'],
+    //     //sliceColors: ['#1ab394','#B5B8CF'],
+    //     highlight: "#1ab394",
+    //     scaleBackdropColor: "rgba(255,255,255,0.75)",
+    // });   
+});
+
+</script>
+
+<% end %>

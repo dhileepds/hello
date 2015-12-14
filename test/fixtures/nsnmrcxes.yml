@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  FSC: MyString
+  NIIN: MyString
+  NSN: MyString
+  MRC: MyString
+  DMRC: MyString
+  RMRC: MyString
+
+two:
+  FSC: MyString
+  NIIN: MyString
+  NSN: MyString
+  MRC: MyString
+  DMRC: MyString
+  RMRC: MyString

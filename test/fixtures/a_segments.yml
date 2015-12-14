@@ -1,0 +1,49 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  TYPE: MyString
+  FSC: MyString
+  NIN: MyString
+  FSG_3994: MyString
+  FSC_WI_FSG_3996: MyString
+  FSC_WI_FSG_3996: MyString
+  NCB_CD_4130: MyString
+  I_I_NBR_4131: MyString
+  FIIG_4065: MyString
+  INC_4080: MyString
+  SHRT_NM_2301: MyString
+  NAIN_5020: MyString
+  CRITL_CD_FIIG_3843: MyString
+  TYP_II_4820: MyString
+  RPDMRC_4765: MyString
+  DEMIL_CD_0167: MyString
+  DT_NIIN_ASGMT_2180: MyString
+  HMIC_0865: MyString
+  ESD_EMI_CD_2043: MyString
+  PMIC_0802: MyString
+  ADPEC_0801: MyString
+  TEST: MyString
+
+two:
+  TYPE: MyString
+  FSC: MyString
+  NIN: MyString
+  FSG_3994: MyString
+  FSC_WI_FSG_3996: MyString
+  FSC_WI_FSG_3996: MyString
+  NCB_CD_4130: MyString
+  I_I_NBR_4131: MyString
+  FIIG_4065: MyString
+  INC_4080: MyString
+  SHRT_NM_2301: MyString
+  NAIN_5020: MyString
+  CRITL_CD_FIIG_3843: MyString
+  TYP_II_4820: MyString
+  RPDMRC_4765: MyString
+  DEMIL_CD_0167: MyString
+  DT_NIIN_ASGMT_2180: MyString
+  HMIC_0865: MyString
+  ESD_EMI_CD_2043: MyString
+  PMIC_0802: MyString
+  ADPEC_0801: MyString
+  TEST: MyString

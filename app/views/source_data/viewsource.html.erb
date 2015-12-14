@@ -1,0 +1,217 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />
+        <!--  <div class="col-lg-6">
+        <img alt="image" src="<%= image_url 'l3.jpg' %>" style="margin-left:-15px;" />
+        </div>
+        <div class="col-lg-2">
+        <img alt="image" src="<%= image_url 'l2.jpg' %>" style="align:center;"/>
+        </div>
+        <div class="col-lg-4">
+            <img alt="image" src="<%= image_url 'l1.jpg' %>" style="margin-top:15px;margin-left:220px;" />
+        </div>  -->
+        
+        <div class="clearfix"></div>
+        <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'source_data', :action => 'chart' %>">Dashboard</a>
+            </li>
+             <li>
+                <a href="<%= url_for :controller => 'source_data', :action => 'nsnlist' %>">CMM Searcher</a>
+            </li>
+            <li class="active">
+                <strong>View Source Data</strong>
+            </li>
+        </ol>
+        
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+             <h2> Source data </h2>
+                <table class="table table-bordered">
+                     <% @viewnsn.each do |v| %> 
+                        <tr> 
+                            <th>FSC</th>
+                            <td><%= v.FSC %> </td>
+                        </tr>
+                            <th>NIIN</th>
+                            <td><%= v.NIIN %> </td>
+                        <tr>
+                            <% if v.FLAG == 'USV'%>
+
+                            <th><%= link_to 'NSN' , {:controller => :source_data,:action => :edit, :NSN => v.NSN } %></th>
+                            <td> <%= link_to v.NSN , {:controller => :source_data,:action => :edit, :NSN => v.NSN } %></td>
+                            <% else %>
+                                <th>NSN</th>
+                                <td> <%= v.NSN  %></td>
+                            <% end %>
+
+                        </tr>
+                        <tr>
+                            <th>SDC</th>
+                            <td><%= v.SDC %> </td>
+                        </tr>
+                        <tr> 
+                             <th>UI</th>
+                             <td><%= v.UI %> </td>
+                        </tr>
+                        <tr> 
+                            <th>SHORT_NOMENCLATURE</th>
+                            <td><%= v.SHORT_NOMENCLATURE %> </td>
+                        </tr>
+                        <tr> 
+                             <th>PART_NUMBER</th>
+                             <td><%= v.PART_NUMBER %> </td>
+                        </tr>
+                        <tr>
+                            <th>CAGEC</th>
+                            <td><%= v.CAGEC %> </td>
+                        </tr>    
+                        <tr>
+                            <th>EI_FSC</th>
+                            <td><%= v.EI_FSC %> </td>
+                        </tr>
+                        <tr>
+                            <th>NIIN2</th>
+                            <td><%= v.NIIN2 %> </td>
+                        </tr>
+                        <tr>
+                            <th>MANUFACTURER_MAKE_MODEL</th>
+                            <td><%= v.MANUFACTURER_MAKE_MODEL %> </td>
+                        </tr>
+                        <tr>
+                            <th>REQ_QTY</th>
+                            <td><%= v.REQ_QTY %> </td>
+                        </tr>      
+                        <tr>
+                            <th>NAME</th>
+                            <td><%= v.NAME %> </td>
+                        </tr>
+                        <tr>
+                            <th>END_ITEM_APPLICATION</th> 
+                            <td><%= v.END_ITEM_APPLICATION %> </td>
+                        </tr>
+                        <tr>
+                            <th>DIC</th>
+                            <td><%= v.DIC %> </td>
+                        </tr>
+                        <tr>
+                            <th>DOC</th>
+                            <td><%= v.DOC %> </td>
+                        </tr>
+                        <tr>
+                            <th>QTY</th>
+                            <td><%= v.QTY %> </td>
+                        </tr>
+                        <tr>
+                            <th>PRICE</th>
+                            <td><%= v.PRICE %> </td>
+                        </tr>
+                        <tr>
+                            <th>FORCE_NAME</th>
+                            <td><%= v.FORCE_NAME %> </td>
+                        </tr>
+                        <tr>
+                            <th>STOCK_NUMBER</th>
+                            <td><%= v.STOCK_NUMBER %> </td>
+                        </tr>
+                        <tr>
+                            <th>SOS</th> 
+                            <td><%= v.SOS %> </td>  
+                        </tr>
+                        <tr>
+                            <th>NUMBER_OF_PARTS_IN_SUPPLY</th>
+                            <td><%= v.NUMBER_OF_PARTS_IN_SUPPLY %> </td>
+                        </tr>
+                        <tr>
+                            <th>MTC</th>
+                            <td><%= v.MTC %> </td>
+                        </tr>
+                            <th>FILE_NAME</th>
+                            <td><%= v.FILE_NAME %> </td>
+                        </tr>
+                        <tr> 
+                            <th>NIIN_ECCMA</th>
+                            <td><%= v.NIIN_ECCMA %> </td>
+                        </tr>   
+                        <tr> 
+                            <th>FSC_ECCMA</th>
+                            <td><%= v.FSC_ECCMA %> </td>
+                        </tr>
+                        <tr> 
+                            <th>COUNTRY_ECCMA</th>
+                            <td><%= v.COUNTRY_ECCMA %> </td>
+                        </tr>
+                        <tr> 
+                            <th>SHRT_NM_2301_ECCMA</th>
+                            <td><%= v.SHRT_NM_2301_ECCMA %> </td>
+                        </tr>   
+                        <tr> 
+                            <th>INC_4080_ECCMA</th>
+                            <td><%= v.INC_4080_ECCMA %> </td>
+                        </tr>  
+                         <tr> 
+                            <th>NAME_ECCMA</th>
+                            <td><%= v.Name_Eccma %> </td>
+                        </tr>
+                        
+                      <% end %>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    var updateOutput = function (e) {
+        var list = e.length ? e : $(e.target),
+                output = list.data('output');
+        if (window.JSON) {
+            output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
+    };
+    // activate Nestable for list 1
+    $('#nestable').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // activate Nestable for list 2
+    $('#nestable2').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // output initial serialised data
+    updateOutput($('#nestable').data('output', $('#nestable-output')));
+    updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+    $('#nestable-menu').on('click', function (e) {
+        var target = $(e.target),
+                action = target.data('action');
+        if (action === 'expand-all') {
+            $('.dd').nestable('expandAll');
+        }
+        if (action === 'collapse-all') {
+            $('.dd').nestable('collapseAll');
+        }
+    });
+
+});
+
+</script>
+
+<% end %>
+    

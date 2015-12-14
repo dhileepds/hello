@@ -1,0 +1,59 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: MyString
+  realname: MyString
+  igid: MyString
+  cat_id: MyString
+  catalog_name: MyString
+  material_id: MyString
+  datecreated: MyString
+  datedeleted: MyString
+  datedeleted: MyString
+  short_description: MyString
+  long_description: MyString
+  RGref: MyString
+  location: MyString
+  supplier_id: MyString
+  class: MyString
+  class_id: MyString
+  supplier_material_no: MyString
+  cmm_material_no: MyString
+  lastmodified: MyString
+  organization_ID: MyString
+  last_modified_by: MyString
+  sts: MyString
+  approved_by: MyString
+  INC: MyString
+  Concept_ID: MyString
+  Term_ID: MyString
+  Term: MyString
+
+two:
+  username: MyString
+  realname: MyString
+  igid: MyString
+  cat_id: MyString
+  catalog_name: MyString
+  material_id: MyString
+  datecreated: MyString
+  datedeleted: MyString
+  datedeleted: MyString
+  short_description: MyString
+  long_description: MyString
+  RGref: MyString
+  location: MyString
+  supplier_id: MyString
+  class: MyString
+  class_id: MyString
+  supplier_material_no: MyString
+  cmm_material_no: MyString
+  lastmodified: MyString
+  organization_ID: MyString
+  last_modified_by: MyString
+  sts: MyString
+  approved_by: MyString
+  INC: MyString
+  Concept_ID: MyString
+  Term_ID: MyString
+  Term: MyString

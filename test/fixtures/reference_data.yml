@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  TYPE: MyString
+  FSC: MyString
+  NIN: MyString
+  NSN: MyString
+  RNFC_2920: MyString
+  RNCC_2910: MyString
+  RNVC_4780: MyString
+  DAC_2640: MyString
+  RNAAC_2900: MyString
+  RNSC_2923: MyString
+  RNJC_2750: MyString
+  CAGE_CD_9250REF_NBR_3570: MyString
+  NAME: MyString
+  SADC_4672: MyString
+  HCC_2579: MyString
+  MSDS_ID_9076: MyString
+  TEST: MyString
+  created_at: MyString
+  updated_at: MyString
+
+two:
+  TYPE: MyString
+  FSC: MyString
+  NIN: MyString
+  NSN: MyString
+  RNFC_2920: MyString
+  RNCC_2910: MyString
+  RNVC_4780: MyString
+  DAC_2640: MyString
+  RNAAC_2900: MyString
+  RNSC_2923: MyString
+  RNJC_2750: MyString
+  CAGE_CD_9250REF_NBR_3570: MyString
+  NAME: MyString
+  SADC_4672: MyString
+  HCC_2579: MyString
+  MSDS_ID_9076: MyString
+  TEST: MyString
+  created_at: MyString
+  updated_at: MyString

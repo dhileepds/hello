@@ -1,0 +1,896 @@
+<?php
+	$companyname = $_REQUEST['companyname'];
+	$Administrator= $_REQUEST['Administrator'];
+	$Title = $_REQUEST['Title'];
+	$Address = $_REQUEST['Address'];
+	$City = $_REQUEST['City'];
+	$State = $_REQUEST['State'];
+	$Zip = $_REQUEST['Zip'];
+	$Country = $_REQUEST['Country'];
+	$txt_short_country_name = $_REQUEST['txt_short_country_name'];
+	$Email = $_REQUEST['Email'];
+	$Phone = $_REQUEST['Phone'];
+	$Fax = $_REQUEST['Fax'];
+	$NOE = $_REQUEST['NOE'];
+	$txtabteccma=$_REQUEST['txtabteccma'];
+	$Industry = $_REQUEST['Industry'];
+	$optmem = $_REQUEST['optmem'];
+	$optMemberlist = $_REQUEST['optMemberlist'];
+	$optMemberlogo = $_REQUEST['optMemberlogo'];
+	$optMemberContact = $_REQUEST['optMemberContact'];
+	$URL = $_REQUEST['URL'];
+	$Contactname = $_REQUEST['Contactname'];
+	$Org_Email = $_REQUEST['Org_Email'];
+	$txtdesc = $_REQUEST['txtdesc'];
+	$txtlist = $_REQUEST['txtlist'];
+	$optNewsletter = $_REQUEST['optNewsletter'];
+	$NewsContactname = $_REQUEST['NewsContactname'];
+	$NewsOrg_Email = $_REQUEST['NewsOrg_Email'];
+	$txtcomments = $_REQUEST['txtcomments'];
+	$chkBSA = $_REQUEST['chkBSA'];
+	$chkESA = $_REQUEST['chkESA'];
+	$chkService = $_REQUEST['chkService'];
+	$chkcleaning = $_REQUEST['chkcleaning'];
+	$chkCataloging = $_REQUEST['chkCataloging'];
+	$chkPDM = $_REQUEST['chkPDM'];
+	$chkERP = $_REQUEST['chkERP'];
+	$chkProcurement = $_REQUEST['chkProcurement'];
+	$cmbnumber = $_REQUEST['cmbnumber'];
+	$mem_name = $_REQUEST['mem_name'];
+	$mem_address = $_REQUEST['mem_address'];
+	$mem_City = $_REQUEST['mem_City'];
+	$mem_State = $_REQUEST['mem_State'];
+	$mem_Zip = $_REQUEST['mem_Zip'];
+	$mem_Country = $_REQUEST['mem_Country'];
+	$mem_email = $_REQUEST['mem_email'];
+	$via = $_REQUEST['via'];
+	$docname=$_REQUEST['docname'];
+	$logoname=$_REQUEST['logoname'];
+	$chk_MOP=$_REQUEST['chk_MOP'];
+	$chk_cardname=$_REQUEST['chk_cardname'];
+	$Card_Name=$_REQUEST['Card_Name'];
+	$Card_Number=$_REQUEST['Card_Number'];
+	$Sec_code=$_REQUEST['Sec_code'];
+	$billing_address=$_REQUEST['billing_address'];
+	$exp_date=$_REQUEST['exp_date'];
+	$certification="MDQM";
+	$chkfee=$_REQUEST['chkfee'];
+	$chkfee=explode("-",$chkfee);
+	$txtserve=$_REQUEST['txtserve'];
+	if(!$chkfee[0]=="")
+	{
+	$vals="Yes";
+	}
+	else
+	{
+	$vals="No";
+	}
+if(isset($_REQUEST['cmbnumber1']))
+{
+$cmbnumber1 = $_REQUEST['cmbnumber1'];
+}
+else
+{
+$cmbnumber1=1;
+}
+$mem_name1 = $_REQUEST['mem_name1'];
+$mem_email1 = $_REQUEST['mem_email1'];
+//print($cmbnumber1);
+if($chk_MOP=="Pay_by_Check")
+{
+$via="Pay by Check";
+}
+if($chk_MOP=="Wire_Transfer")
+{
+$via="Pay by Wire Transfer";
+}
+if($chk_MOP=="Credit_card")
+{
+$via="Pay by Credit Card";
+}
+if($docname<>"")
+{
+$docname = "Attach/". $docname;
+}
+if($logoname<>"")
+{
+$logoname = "Attach/".$logoname;
+}
+function str_makerand ()
+{
+$charset = "abcdefghijklmnopqrstuvwxyz";
+$charset .= "0123456789";
+if (5 > 20) $length = mt_rand (5, 10);
+else
+$length = mt_rand (5, 10);
+for ($i=0; $i<$length; $i++) $key .= $charset[(mt_rand(0,(strlen($charset)-1)))];
+return $key;
+echo("$key");
+}
+function fnc_date_calc($this_date,$num_days)
+{
+$my_time = strtotime ($this_date);
+$timestamp = $my_time + ($num_days * 86400);
+$return_date = date("Y-m-d",$timestamp);
+return $return_date;
+}
+$dbhost = 'localhost';
+$dbuser = 'egor';
+$dbpass = 'egor123';
+$dbname = 'eotd_egor';
+$connection = mysql_connect("$dbhost","$dbuser","$dbpass") 
+or die (mysql_error());
+$db = mysql_select_db("$dbname", $connection)
+or die("Couldn't select database.");
+//Address
+$strcountry=$Country;
+//print("1=Select max(Address_ID) as m from Address")or die(mysql_error());
+$ad=mysql_query("Select * from Address where Address_line1_text='$Address' and City_name='$City' and State_provence_code='$State' and Country_code='$strcountry'");
+if (!$row=mysql_fetch_array($ad))
+{	
+$add=mysql_query("Select max(Address_ID) as m from Address")or die(mysql_error());
+if($row=mysql_fetch_array($add))
+{
+/*	$address_id=ereg_replace("0161-1#AD-","",$row['m']);
+print("df=$address_id");
+$address_id=ereg_replace("#1","",$row['m']);
+$address_id=intval($address_id);
+
+$address_id=$address_id+1;
+$address_id='0161-1#AD-'.str_pad($address_id, 6, "0", STR_PAD_LEFT);
+$address_id=$address_id.'#1';
+print("address=$address_id");
+*/	
+$aid=substr($row['m'],10,6);
+$address_id=$aid+1;
+$address_id=str_pad($address_id, 6, "0", STR_PAD_LEFT);  
+$address_id='0161-1#'.'AD-'.$address_id.'#1';
+$location_id=ereg_replace("AD","LN",$address_id);
+/* $query = mysql_query("INSERT INTO `Address` ( `Address_ID`  ,`Location_id` , `Address_line1_text` , `City_name` ,                    `State_provence_code` , `Zip_postcode_text` , `Country_code`)
+VALUES ('$address_id','$location_id', '$Address', '$City', '$State', '$Zip','$strcountry')") 
+or die(mysql_error()); */
+}
+}
+else
+{
+$address_id=$row['Address_ID'];
+//print("dsafdasg=$address_id");
+$location_id=$row['Location_id'];
+}   
+//Organisation;
+//print("Select * from Organization where Legal_name='$companyname'");
+$sql1=mysql_query("Select * from Organization where Legal_name='$companyname'");
+if(!$row=mysql_fetch_array($sql1))
+{
+$ind=mysql_query("Select max(Org_id) as m from Organization");
+if($row=mysql_fetch_array($ind))
+{
+$ogid=substr($row['m'],10,6);
+$org_id=$ogid+1;
+$org_id=str_pad($org_id, 6, "0", STR_PAD_LEFT);  
+$org_id='0161-1#'.'OG-'.$org_id.'#1';
+}
+/* $sql = mysql_query("INSERT INTO `Organization` ( `Org_id`,`Legal_name` , `company_type` , `Legal_address_id` , `size_code`)
+VALUES ('$org_id','$companyname','$Industry', '$address_id', '$NOE')")or die(mysql_error());  */ 
+}
+else
+{
+$sql1=mysql_query("Select * from Organization where Legal_name='$companyname'");
+if($row=mysql_fetch_array($sql1))
+{
+$org_id=$row['Org_id'];
+}
+//print("Update `Organization` set `Legal_name` ='$companyname',`company_type`='$Industry',
+//                  `Legal_address_id`='$address_id', `size_code`='$NOE' where  `Org_id`='$org_id'");
+
+/* $sql=mysql_query("Update `Organization` set `Legal_name` ='$companyname',`company_type`='$Industry',
+			`Legal_address_id`='$address_id', `size_code`='$NOE' where  `Org_id`='$org_id'");  */ 
+}
+//Name
+//print("2=Select max(individual_id) as m from Individual");
+$ind=mysql_query("Select max(Individual_id) as m from Individual");
+if($row=mysql_fetch_array($ind))
+{
+$iid=substr($row['m'],10,6);
+$individual_id=$iid+1;
+$individual_id=str_pad($individual_id, 6, "0", STR_PAD_LEFT);  
+$individual_id='0161-1#'.'IN-'.$individual_id.'#1';
+}
+$pwd=str_makerand();
+$date=date("Y-m-d");
+if($optmem=="Student")
+{
+$num_days=30;
+$ex_date =fnc_date_calc($date,$num_days);
+}
+else
+{
+$ex_date=date("Y")+1 ."-".date("m-d");
+}
+/* $sql="INSERT INTO Individual
+(Individual_id, Org_id,Location_id,username,password,realname,Title_text,member_type,Applicant_Country,Active_status,membership_start_date,membership_end_date)
+VALUES
+('$individual_id','$org_id','$location_id','$Email','$pwd','$Administrator','$Title','Member','Non India','Pending','$date','$ex_date')"; 
+$result=mysql_query($sql); */ 
+$loc=mysql_query("Select * from location where Location_id='$location_id'");
+if (!$row=mysql_fetch_array($loc))
+{	
+/* $sq = mysql_query("INSERT INTO `location` ( `Location_id`,`Org_id`,`Physical_address_id`) 
+VALUES ('$location_id','$org_id','$address_id')")
+or die(mysql_error());  */
+}
+//Email
+$ind=mysql_query("Select max(email_id) as m from email");
+if($row=mysql_fetch_array($ind))
+{
+$email_id=ereg_replace("IN","EM",$individual_id);
+}
+/* $sql = mysql_query("INSERT INTO `email` ( `email_id` ,  `email_address` , `Individual_id`,Org_id)
+VALUES ('$email_id','$Email','$individual_id','$org_id')")
+or die(mysql_error());  */ 
+//Telephone
+/* $que = mysql_query("INSERT INTO `Telephone` ( `Individual_id`, Org_id, `Telephone_number` , `Fax`)
+VALUES ('$individual_id','$org_id','$Phone', '$Fax')")
+or die(mysql_error()); */  
+//Additional
+if($cmbnumber<>"" && $cmbnumber<>0)
+{
+for($i=0;$i<$cmbnumber;$i++)
+{
+$add=mysql_query("Select max(address_id) as m from Address");
+if($row=mysql_fetch_array($add))
+{
+//Address			
+$aid=substr($row['m'],10,6);
+$address_id=$aid+1;
+$address_id=str_pad($address_id, 6, "0", STR_PAD_LEFT);  
+$address_id='0161-1#'.'AD-'.$address_id.'#1';
+$location_id=ereg_replace("AD","LN",$address_id);
+/* $query = mysql_query("INSERT INTO `Address` ( `Address_ID`  ,`Location_id` , `Address_line1_text` , `City_name` ,                    `State_provence_code` , `Zip_postcode_text` , `Country_code`)
+VALUES ('$address_id','$location_id', '$Address', '$City', '$State', '$Zip','$strcountry')") 
+or die(mysql_error()); */ 
+//Name
+$ind=mysql_query("Select max(individual_id) as m from Individual");
+if($row=mysql_fetch_array($ind))
+{				
+$iid=substr($row['m'],10,6);
+$individual_id=$iid+1;
+$individual_id=str_pad($individual_id, 6, "0", STR_PAD_LEFT);  
+$individual_id='0161-1#'.'IN-'.$individual_id.'#1';
+}
+$pwd=str_makerand();
+$date=date("Y-m-d");
+if($optmem=="Student")
+{
+$num_days=30;
+$ex_date =fnc_date_calc($date,$num_days);
+}
+else
+{
+$ex_date=date("Y")+1 ."-".date("m-d");
+}
+/* $sql="INSERT INTO Individual
+(Individual_id ,Org_id,Location_id,username,password,realname,Title_text,member_type,Applicant_Country,Active_status,membership_start_date,membership_end_date)
+VALUES
+('$individual_id','$org_id','$location_id','$Email','$pwd','$Administrator','$Title','Member','Non India','Pending','$date','$ex_date')"; 
+$result=mysql_query($sql); */ 		
+$loc=mysql_query("Select * from location where Location_id='$location_id'");
+if (!$row=mysql_fetch_array($loc))
+{	
+/* $sq = mysql_query("INSERT INTO `location` ( `Location_id`,`Org_id`,`Physical_address_id`) 
+VALUES ('$location_id','$org_id','$address_id')")
+or die(mysql_error()); */ 
+}
+//Email
+$ind=mysql_query("Select max(email_id) as m from email");
+if($row=mysql_fetch_array($ind))
+{				
+$email_id=ereg_replace("IN","EM",$individual_id);
+}
+/* $sql = mysql_query("INSERT INTO `email` ( `email_id` ,  `email_address` , `Individual_id`,Org_id)
+VALUES ('$email_id','$Email','$individual_id','$org_id')")
+or die(mysql_error()); */ 
+}
+}
+}
+$from =$Email;
+//$to="membership@eccma.org,victoria.kondravy@eccma.org,koshy@eccma.org,p.mani@eccma.org,porselvi@eccma.org";
+$to="dhileep@eccma.org";
+$subject= "ECCMA Membership Application - $via ";
+$body='
+<font size="2" face="Verdana">
+<TABLE width="725">
+<TR>
+<TD colspan="2"  id="hide4" style="FONT-SIZE:13PX;FONT-WEIGHT:BOLD;">';
+if($optmem=="Student")
+{
+$body.='<font color=#BC0108 face="Verdana">Contact Information</font>';
+}
+else
+{
+$body.='<font color=#BC0108 face="Verdana">Company/Organization Information</font>';
+}
+$body.='</TD>
+</TR>
+</TABLE> ';
+if($optmem<>"Student")
+{
+$body.='
+<TABLE width="725" id="hide1">
+<TR>
+<TD align="right" width="267" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Company/Organization Name: </SPAN></font>
+</strong></TD>
+<TD width="446"><font size="2" face="Verdana">'.$companyname.'
+</font></TD>
+</TR>
+</TABLE>';
+}
+$body.='
+<TABLE width="725">
+<TR>
+<TD align="right" width="267"><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Address: </SPAN></font>
+</strong></TD>
+<TD align="left"><font size="2" face="Verdana">'.$Address.'
+</font></TD>
+</TR>
+<TR>
+<TD align="right" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000 face="Verdana">*</FONT> City: </SPAN></font>
+</strong></TD>
+<TD><font size="2" face="Verdana">'.$City.'&nbsp;&nbsp;&nbsp;<strong><FONT color=#cc0000 face="Verdana">*</FONT> State:</strong>
+'.$State.'&nbsp;&nbsp;&nbsp;<strong><FONT color=#cc0000 face="Verdana">*</FONT> Zip/Post Code:</strong>
+'.$Zip.'
+</font></TD>
+</TR>
+<TR>
+<TD align="right" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Country: </SPAN></font>
+</strong></TD>
+<TD><font size="2" face="Verdana">'.$Country.' </font>
+</TD>
+</TR>
+</TABLE> ';
+if($optmem<>"Student")
+{
+$body.='
+<TABLE width="725" id="hide5">
+<TR>
+<TD width="266" align="right" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Number of Employees: </SPAN></font> </strong></TD>
+<TD width="447"><font size="2" face="Verdana">
+'.$NOE.'</font></TD>
+</TR>
+</TABLE>';
+}
+if($optmem<>"Student")
+{
+$body.='
+<TABLE width="725" id="hide2">
+<TR>
+<TD width="266" align="right" colspan="2"><font size="2" face="Verdana"><strong><FONT color=#cc0000>*</FONT> Industry:</strong></font></TD>
+<TD width="447"><font size="2" face="Verdana"> '.$Industry.'</font></TD>
+</TR>
+</TABLE>';
+}
+$body.='
+<TABLE width="725">
+<TR>
+<TD colspan="2">&nbsp;</TD>
+</TR>
+<TR>
+<TD colspan="2" ><font size="2"  face="Verdana" color=#BC0108><strong>Administrator Account
+Information</strong></font></TD>
+</TR>
+<TR>
+<TD align="right" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Administrator of the Account:
+</SPAN></font> </strong></TD>
+<TD><font size="2" face="Verdana">'.$Administrator.'</font></TD>
+</TR>
+<TR>
+<TD align="right" ><strong><font size="2" face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Title: </SPAN></font>
+</strong></TD>
+<TD><font size="2" face="Verdana">'.$Title.'</font></TD>
+</TR>
+<TR>
+<TD width="266" align="right" ><strong><font size="2"  face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Administrator
+Email Address: </SPAN></font> </strong></TD>
+<TD width="447"><font size="2" face="Verdana">'.$Email.'</font></TD>
+</TR>
+<TR>
+<TD width="266" align="right" ><strong><font size="2"  face="Verdana"><SPAN ><FONT color=#cc0000>*</FONT> Telephone:
+</SPAN></font> </strong></TD>
+<TD width="447"><font size="2"  face="Verdana"> '.$Phone.'&nbsp;
+&nbsp;<strong>&nbsp;Fax Number:</strong> '.$Fax.'
+</font></TD>
+</TR>
+</TABLE>
+<hr>';
+$list="";
+$list2="";
+$list3=0;
+$s=$chkfee[0];
+if($s==170)
+{
+$list2='ECCMA Associate Member';
+$list3="170";
+}
+else if($s==100)
+{
+$list2='ECCMA Full Member';
+$list3="100";
+}
+else if($s==50)
+{
+$list2='ECCMA Charter Member';
+$list3="50";
+}
+if($optmem==500 && !$s=="")
+{
+$s1=$s*$cmbnumber1;
+$amount=500+$s1;
+$list='Associate Membership ($500 USD)';
+}
+else if($optmem==500) 
+{
+$amount="500";
+$list='Associate Membership ($500 USD)';
+}
+if($optmem==5000 && !$s=="")
+{
+$s1=$s*$cmbnumber1;
+$amount=5000+$s1;
+$list= 'Full Membership ($5,000 USD)';
+}
+else if($optmem==5000) 
+{
+$amount="5000";
+$list= 'Full Membership ($5,000 USD)';
+}
+if($optmem==50000 && !$s=="")
+{
+$s1=$s*$cmbnumber1;
+$amount=50000+$s1;
+$list='Charter Membership ($50,000 USD)';
+}
+else if($optmem==50000) 
+{
+$amount="50000";
+$list='Charter Membership ($50,000 USD)';
+}
+$body.='<font size="2"  face="Verdana"><b>Membership Category:</b> '.$list.'</font>';
+if($optmem<>"Student")
+{
+$body.='<TABLE id="hide3">
+<TR>
+<TD>
+<font size="2"  face="Verdana"><b>Method of Payment:</b> '.$chk_MOP.'</font>
+</TD>
+</TR>
+<TR>
+<TD><br>
+<hr>
+<p ><br><strong><font size="2"  face="Verdana" color=#BC0108>Membership Directory:</font></strong></p>
+<p><strong><font size="2">You may update your member profile page at any time by contacting
+<a href="mailto:membership@eccma.org">membership@eccma.org</a></font></strong></p>
+<TABLE>
+<TR>
+<TD><font size="2" face="Verdana"><strong>Would you like to be listed in ECCMA`s Member Directory
+with a hyperlink to your company`s website?</strong> '.$optMemberlist.'
+</font>
+<font size="2"  face="Verdana"><br>
+Company`s URL:</font>
+<font size="2"  face="Verdana">'.$URL.'</font>
+</TD>
+</TR>
+<TR>
+<TD colspan="2">&nbsp;</TD>
+</TR>
+<TR>
+<TD><strong><font size="2"  face="Verdana">Would you like to include your logo in Member Directory?</font><strong>
+<font size="2"> ';
+if($optMemberlogo=="Yes")
+{
+$body.='<font size="2"  face="Verdana"> '.$optMemberlogo.'<br> <b>Logo name (Attached): </b>'.ereg_replace('Attach/','',$logoname) .'</font>';
+}
+else
+{
+$body.=$optMemberlogo;
+}
+$body.='</TD>
+</TR>
+<TR>
+<TD colspan="2">&nbsp;</TD>
+</TR>
+<TR>
+<TD><font size="2"  face="Verdana"><strong>How did you hear about ECCMA?</strong></font>
+<font size="2" face="Verdana"> '.$txtabteccma.'</font>
+</TD>
+</TR>
+</TABLE>
+<p><font size="2" face="Verdana"><strong>Describe
+your company and services as you would like it to read in our membership
+directory or attach document.</strong></font><br>
+'.$txtdesc.'
+</p>';
+if($docname<>"")
+{
+$body.='<p><font size="2" face="Verdana"><b>Attached document name: </b>'.ereg_replace('Attach/','',$docname).'</font>
+</p>';
+}
+$body.='<p><font size="2" face="Verdana">Number of additional
+people in your company that should receive information from ECCMA whether
+it be a news release, announcement, newsletter, etc.</font>:<font size="2"><b>'.$cmbnumber.'</b></font>
+</p>';
+if($cmbnumber<>"" && $cmbnumber<>0)
+{
+$body.='<p><font size=2  face="Verdana"><strong>Please fill in the following area(s) for EACH additional people:</strong></font></p>
+<TABLE>';
+for($i=0;$i<$cmbnumber;$i++)
+{
+$body.='<tr>
+<td align="right"><font size="2"  face="Verdana"> Name: </font></td>
+<td ><font size="2">'.$mem_name[$i].'</font></td></tr>
+<tr><td align="right"><font size="2"  face="Verdana">Address: </font></td>
+<td ><font size="2">'.$mem_address[$i].'</font></td></tr>
+<TR>
+<TD align="right" ><font size="2"  face="Verdana"><SPAN >City: </SPAN></font>
+</TD>
+<TD><font size="2"  face="Verdana">'.$mem_City[$i].'&nbsp;&nbsp;&nbsp;State: </SPAN>'.$mem_State[$i].'
+&nbsp;&nbsp;&nbsp;Zip/Post Code:  </SPAN>'.$mem_Zip[$i].'</font></TD>
+</TR>
+<TR>
+<TD align="right" ><font size="2"  face="Verdana"><SPAN >Country: </SPAN></font>
+</TD>
+<TD><font size="2"  face="Verdana">'.$mem_Country[$i].'</font></TD></TR>
+<tr >
+<td align="right"><font size="2"  face="Verdana">Email Address: </font></td>
+<td ><font size="2"  face="Verdana"><a href="mailto:'.$mem_email[$i].'">'.$mem_email[$i].'</a></font></td></tr>
+<tr> <td colspan="2"  face="Verdana">&nbsp;</td></tr>';
+}
+$body.='</TABLE>';
+}
+$body.='<hr>
+<p ><strong><font size="2"  face="Verdana" color=#BC0108>Newsletter:</font></strong></p>
+<TABLE>
+<TR>
+<TD width="597"><strong><font size="2"  face="Verdana">Would you like to be contacted about submitting an article
+to our bi-monthly newsletter? </font></strong>
+<font size="2"> '.$optNewsletter.'
+</font> </TD>
+</TR>
+</TABLE>
+<TABLE width="695">
+<TR>
+<TD width="323" ><strong><font size="2"  face="Verdana"><SPAN >Contact
+Name: </SPAN></font></strong>
+<font size="2" face="Verdana">'.$NewsContactname.'</font>
+</TD>
+<TD width="360"><font size="2"  face="Verdana">
+&nbsp;&nbsp;&nbsp;<strong>E-mail Address: </strong><a href="'.$NewsOrg_Email.'">'.$NewsOrg_Email.'</a></font>
+</TD>
+</TR>
+</TABLE>
+<hr>
+<p><font size="2" face="Verdana"><strong>Comments/Additional Information:</strong><br>'.$txtcomments.'</font>
+</p><hr>
+<p>
+<font size="2"  face="Verdana"><strong>To better serve you, what are you looking to get our of your membership? </strong></font></p><font size="2" face="Verdana"> '.$txtserve.'</font><hr>
+<p><strong><font size="2"  face="Verdana">If you selected to have your company listed on the ECCMA
+website directory, please select what categorie(s) you would like your organization
+to be listed under:</font></strong></p>
+<p ><strong><font size="2"  face="Verdana" color=#BC0108>Service Provider Categories</font></strong></p><ul>';
+$Category_of_Org="";
+if($chkBSA=="Basic Spend Analysis")
+{
+$Category_of_Org="Basic Spend Analysis,";
+$body.='<li><font size="2"  face="Verdana">Basic Spend Analysis </font></li>';
+}
+if($chkESA=="Enhanced Spend analysis")
+{
+$Category_of_Org.="Enhanced Spend analysis,";
+$body.='<li><font size="2"  face="Verdana">Enhanced Spend Analysis </font></li>';
+}
+if($chkService=="Improving the quality of Material, Service or Vendor Master data")
+{
+$Category_of_Org.="Improving the quality of Material, Service or Vendor Master data,";
+$body.='<li><font size="2"  face="Verdana">Improving the quality of Material, Service or
+Vendor Master data </font></li>';
+}
+$body.='  </UL>
+<p ><strong><font size="2"  face="Verdana" color=#BC0108>Application Provider Categories:</font></strong></p><UL>';
+if($chkcleaning=="Data cleaning")
+{
+$Category_of_Org.="Data cleaning,";
+$body.='<li><font size="2"  face="Verdana">Data Cleaning</font></li>';
+}
+if($chkCataloging=="Cataloging")
+{
+$Category_of_Org.="Cataloging,";
+$body.='<li><font size="2" face="Verdana">Cataloging</font></li>';
+}
+if($chkPDM=="Product Data Management")
+{
+$Category_of_Org.="Product Data Management,";
+$body.='<li><font size="2" face="Verdana">Product Data Management (PDM) </font></li>';
+}
+if($chkERP=="Enterprise Resource Planning")
+{
+$Category_of_Org.="Enterprise Resource Planning,";
+$body.='<li><font size="2" face="Verdana">Enterprise Resource Planning (ERP) </font></li>';
+}
+if($chkProcurement=="Procurement")
+{
+$Category_of_Org.="Procurement,";
+$body.='<li><font size="2" face="Verdana">Procurement</font></li>';
+}
+$body.='<br><br></font>';
+}
+if($chkfee[0]!="")
+{
+$body.='<p ><strong><font size="2"  face="Verdana">Are you interested in also obtaining your ISO 8000 Master Data Quality Manager Certificate or need to renew?</font></strong></p>';
+$body.='<font size="2"  face="Verdana"><b>Membership Category:</b> '.$list2.'</font><br>';
+$body.='<font size="2"  face="Verdana"><b>Certification Fees:</b> '.$s1.'('.$chkfee[0].'+('.$chkfee[0].'*'.$cmbnumber1.'))</font><br>';
+$body.='<b>Please Select the number of Individuals:</b>'.$cmbnumber1.'<br>';
+if($cmbnumber1<>"" && $cmbnumber1<>0)
+{
+$body.='<TABLE>';
+for($i=0;$i<$cmbnumber1;$i++)
+{
+$body.='<tr>';
+$body.='<td><font size="2"><b> Individuals First & Last Name:</b>';
+$body.='</font></td>';
+$body.='<td class="fontstyle">'.$mem_name1[$i].'</td>';
+$body.='</tr>';
+$body.='<tr >';
+$body.='<td><font size="2"><b>Email Address:</b> </font></td>';
+$body.='<td class="fontstyle">'.$mem_email1[$i].'</td>';
+$body.='</tr>';
+$body.='<tr> <td colspan="2">&nbsp;</td></tr>';
+}
+}
+$body.='</TABLE>';
+}
+$email_Content = '<html><body>'.$body.'</body></html>';
+// array with filenames to be sent as attachment
+if($logoname<>"" && $docname<>"")
+{
+$files = array($docname,$logoname);
+}
+elseif($docname<>"")
+{
+$files = array($docname);
+}
+elseif($logoname<>"")
+{
+$files = array($logoname);
+}
+$fileatt_type = "application/octet-stream"; // File Type
+$headers = "From: $from";
+$semi_rand = md5(time());  
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";  
+$headers .= "\nMIME-Version: 1.0\n" .  
+"Content-Type: multipart/mixed;\n" .  
+" boundary=\"{$mime_boundary}\""; 
+$email_Content= "This is a multi-part message in MIME format.\n\n" .  
+"--{$mime_boundary}\n" .  
+"Content-Type:text/html; charset=\"iso-8859-1\"\n" .  
+"Content-Transfer-Encoding: 7bit\n\n" .  
+$email_Content . "\n\n"; 
+$email_Content .= "--{$mime_boundary}\n";
+if($optmem<>"Student")
+{
+for($x=0;$x<count($files);$x++)
+{
+$file = fopen($files[$x],"rb");
+//echo $files[$x];
+$data = fread($file,filesize($files[$x]));
+fclose($file);
+$data = chunk_split(base64_encode($data));
+$email_Content .="Content-Type: {\"$fileatt_type\"};\n" . " name=\"$files[$x]\"\n" ."Content-Disposition: attachment;\n" . " filename=\"$files[$x]\"\n" . "Content-Transfer-Encoding: base64\n\n" .$data . "\n\n";
+$email_Content .= "--{$mime_boundary}\n";
+}
+}
+if($Email<>"")
+{
+mail($to, $subject, $email_Content, $headers);
+}
+//$success="ok";
+$amt="$ ". $amount;
+$list=ereg_replace("'","''",$list);
+//Membership
+$mem=mysql_query("Select max(id) as m from Membership");
+if($row=mysql_fetch_array($mem))
+{
+$id=$row['m']+1;
+
+/*print("INSERT INTO `Membership` (id,`companyname`,`no_of_employees`,`industry`,
+`individual_id` , `Membership_Category` , `listed_in_MD` , `logo_in_MD` , `Company_info_in_MD` , `MD_Name` , `MD_Email` , `Company_Info` , `Extra_Info_in_MD` , `Newsletter` , `NL_Name` , `NL_Email` , `Comments` , `Category_of_Org` , `Appln_Type` , `Total_Amount` , `Date`,`Payment_type` )
+VALUES (
+$id,'$companyname','$NOE','$Industry','$individual_id','$list', '$optMemberlist', '$optMemberlogo', '$optMemberContact', '$Contactname', '$Org_Email', '$txtdesc', '$txtlist', '$optNewsletter', '$NewsContactname', '$NewsOrg_Email', '$txtcomments', '$Category_of_Org', 'New Member_Non India', '$amt', NOW(),'$via')");*/
+
+/* $insert=mysql_query("INSERT INTO `Membership` (id,`companyname`,`no_of_employees`,`industry`,
+`individual_id` , `Membership_Category` , `listed_in_MD` , `logo_in_MD` ,`About_ECCMA`, `Company_info_in_MD` , `MD_Name` , `MD_Email` , `Company_Info` , `Extra_Info_in_MD` , `Newsletter` , `NL_Name` , `NL_Email` , `Comments` ,`serve`, `Category_of_Org` ,`MDQM_Register`, `Appln_Type` , `Total_Amount` , `Date`,`Payment_type`)
+VALUES ($id,'$companyname','$NOE','$Industry','$individual_id','$list', '$optMemberlist', '$optMemberlogo','$txtabteccma', '$optMemberContact', '$Contactname', '$Org_Email', '$txtdesc', '$txtlist', '$optNewsletter', '$NewsContactname', '$NewsOrg_Email', '$txtcomments','$txtserve','$Category_of_Org','$vals', 'New Member_Non India', '$amt', NOW(),'$via')"); */ 
+if($cmbnumber1<>"" && $cmbnumber1<>0 && $vals!="No")
+	   {
+			for($i=0;$i<$cmbnumber1;$i++)
+			{
+/* $sql=mysql_query("insert into iso_registration(`company_name`,`certification`,`certification_fees`,`street_address`,`city`,`state`,`country`,`zip_code`,`name`,
+`email_address`,`telephone_number`,`payment_mode`,`membership_category`,`date_added`)values('$companyname','$certification','$chkfee[0]','$Address','$City','$State','$Country','$Zip','$mem_name1[$i]','$mem_email1[$i]','$Phone','$via','$chkfee[1]',NOW())") or die(mysql_error()); */ 
+ }   
+	   } 
+}
+//$d=base64_encode("usd");
+$amount_encode=base64_encode('10');
+$item_encode=base64_encode("New Member");
+$email_encode=base64_encode($Email);
+$subject = "Registration Successfully Completed";
+//$to="$Email";
+$to="dhileep@eccma.org";
+$from="membership@eccma.org";
+$body='Dear <b>' . $Administrator .'</b><br><br>';
+
+if($via=="Pay by Check" || $via=="Pay by Wire Transfer")
+{
+$body.='Thank you for joining ECCMA. We have received your application for a 1';
+if($optmem=="Student")
+{
+$body.=" month ";
+}
+else
+{
+$body.=" year ";
+}
+$body.='membership. Below you will find your invoice details:<br><br>
+
+<b>Membership Type: </b>' . $list .'' ;
+if($chkfee[0]!="")
+{
+$body.='<b>+</b>' . $list2 . '( $ ' . $list3 . ') <br>';
+}
+$body.='<br><b>Company/Organization Name: </b> '.$companyname.' <br>';
+if($chkfee[0]!="")
+{
+$body.='<b>No. Of Individuals:</b>'.$cmbnumber1.'<br>';
+}
+$body.='<b>Amount: </b>$'.$amount.'.00 USD';
+if($chkfee[0]!="")
+{
+$body.='($'.$optmem.'+('.$chkfee[0].'*'.$cmbnumber1.')
+<br><br>';
+}
+$body.='<br><br>
+<b>Please send and make checks payable to (checks must be in U.S. dollars drawn on a U.S. bank):</b><br>
+Code Management Association <br>
+2980 Linden Street, Suite E2<br>
+Bethlehem, PA 18017<br><br>
+<b>ECCMA Bank Information for Wire Transfers (For all wire transfers, a $25.00 USD wire fee should be added to the above amount): </b><br>
+Bank Name: Bank of America<br>
+Bank Address: 100 W. 33rd Street<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;New York, NY 10001<br>
+Account Number: 383002544870<br>
+Swift Routing Code: BOFAUS3N<br>
+Bank Phone: +1 800-432-1000<br><br>
+Once we have received payment, you will receive a receipt of payment and will be provided with your login information to access the ECCMA member`s area within 24 - 48 hours of payment. <br><br>
+While your membership is being processed, catch up on our latest <a href="http://www.eccma.org/resources/news.php">newsletter</a>*. It includes member resources, upcoming events and recent hot topics. 
+<br><br>
+If you chose to receive your ISO 8000 MDQM certificate, more information will be emailed to you shortly. In the meantime, please join our <a href="http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about">LinkedIn forum</a>** to get connected with other certified managers and see the latest discussions.
+<br><br>
+Our goal is to serve members to the best of our ability, so we encourage you to give us <a href="http://www.proprofs.com/survey/t/?title=fgphn">feedback</a>***.
+<br><br>
+We appreciate the opportunity to serve you and look forward to working with you!<br><br>
+Thank you,<br>
+<b>ECCMA (Electronic Commerce Code Management Association)</b><br>
+2980 Linden Street, Suite E2<br>
+Bethlehem, PA 18017<br>
+Tele: +1 610-861-5990<br>
+Fax: +1 610 625 4657<br>
+<a href="www.eccma.org">www.eccma.org</a><br><br><br>
+*<a href="http://www.eccma.org/resources/news.php ">http://www.eccma.org/resources/news.php</a><br>
+**<a href="http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about">http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about </a><br>
+***<a href="http://www.proprofs.com/survey/t/?title=fgphn">http://www.proprofs.com/survey/t/?title=fgphn</a>';
+}
+else
+{
+$body.='Thank you for joining ECCMA. We have received your application for a 1';
+if($optmem=="Student")
+{
+$body.=" month ";
+}
+else
+{
+$body.=" year ";
+}
+$body.=' membership. If you have not proceeded to pay, it can be paid by using the following link: &nbsp;
+<a href=http://www.eccma.org/sas_pp/gotopayform.php?fee='.$amount_encode.'&item='.$item_encode.'&email='.$email_encode.'><b><font color=red>Pay Online</font></b></a><br><br>
+If you have already completed the payment process, you will receive a receipt of payment and will be provided with your login information to access the ECCMA member`s area within 24 - 48 hours.<br><br>
+While your membership is being processed, catch up on our latest <a href="http://www.eccma.org/resources/news.php">newsletter</a>*. It includes member resources, upcoming events and recent hot topics. 
+<br><br>
+If you chose to receive your ISO 8000 MDQM certificate, more information will be emailed to you shortly. In the meantime, please join our <a href="http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about">LinkedIn forum</a>** to get connected with other certified managers and see the latest discussions.
+<br><br>
+Our goal is to serve members to the best of our ability, so we encourage you to give us <a href="http://www.proprofs.com/survey/t/?title=fgphn">feedback</a>***.
+<br><br>
+We appreciate the opportunity to serve you and look forward to working with you!<br><br>
+Thank you,<br>
+<b>ECCMA (Electronic Commerce Code Management Association)</b><br>
+2980 Linden Street, Suite E2<br>
+Bethlehem, PA 18017<br>
+Tele: +1 610-861-5990<br>
+Fax: +1 610 625 4657<br>
+<a href="www.eccma.org">www.eccma.org</a><br><br><br>
+*<a href="http://www.eccma.org/resources/news.php ">http://www.eccma.org/resources/news.php</a><br>
+**<a href="http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about">http://www.linkedin.com/groups/ISO-8000-Certified-Master-Data-1667647/about </a><br>
+***<a href="http://www.proprofs.com/survey/t/?title=fgphn">http://www.proprofs.com/survey/t/?title=fgphn</a>';
+}
+$messa='<html><body>'.$body.'</body></html>';
+$headers = "From: $from";
+$semi_rand = md5(time());  
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";  
+$headers .= "\nMIME-Version: 1.0\n" .  
+"Content-Type: multipart/mixed;\n" .  
+" boundary=\"{$mime_boundary}\""; 
+$headers .= "\r\n" ."CC:dhileep@eccma.org";
+//$headers .= "\r\n" ."CC:p.mani@eccma.org";
+$email_Content1 = "This is a multi-part message in MIME format.\n\n" .  
+"--{$mime_boundary}\n" .  
+"Content-Type:text/html; charset=\"iso-8859-1\"\n" .  
+"Content-Transfer-Encoding: 7bit\n\n" .  
+$email_Content1 . "\n\n"; 
+$email_Content1.=$messa;
+mail($to, $subject, $email_Content1, $headers);
+if($via=="Pay by Check" || $via=="Pay by Wire Transfer")
+{
+?>
+<html>
+<head>
+<title>ECCMA</title>
+<link href="../../style/style.css" rel="stylesheet" type="text/css">
+<link type="text/css" href="../../menu.css" rel="stylesheet" />
+<script type="text/javascript" src="../../jquery.js"></script>
+<script type="text/javascript" src="../../menu.js"></script>
+</head>
+<Body>
+<Table align="center" style="margin:0 auto;">
+<TR> <TD  colspan="2" valign="top">
+ <table cellpadding="0">
+				 <tr>
+				   <td>
+ <?php require "../../header.html" ?></td></tr></table></TD> </TR>
+ </Table>
+<TABLE width="1000" style="margin:0 auto;">
+<TR>
+<TD width="20%"  valign="top"><?php require "../../left.php" ?></TD>
+<TD width="80%" valign="top">
+<br><div align="left"><font size="2">
+Thank you for your membership application. Your invoice with payment information will be sent to you by email. If you have any questions please contact Victoria Falcone at <a href="mailto:vicky.falcone@eccma.org">vicky.falcone@eccma.org</a> or by phone at +1 610 861 5990.<br><br>
+Below are your invoice details.<br><br>
+<b>Membership Type: </b><?php echo $list; ?>
+<?php if(!$chkfee[0]=="") { ?>
+<b>+</b><?php echo $list2; ?>($<?php echo $list3; ?>) <br>
+<?php } ?>
+ <br>
+<b>Company/Organization Name: </b> <?php echo $companyname; ?> <br>
+<b>Amount: </b>$<?php echo $amount; ?>.00 USD 
+<?php if(!$chkfee[0]=="") { ?>($<?php echo $optmem; ?>+($<?php echo $list3; ?>*<?php echo $cmbnumber1;?>)) <?php } ?>
+<br><br>
+</font>
+</div>
+<?php
+}
+else
+{
+?>
+<form id="payment_form" action="http://www.eccma.org/sas_pp/gotopayform.php"  method="post" name="frmpay">   
+    <input type="hidden" name="fee" value="<?php echo $amount_encode; ?>" size="25"><br/>
+	 <input type="hidden" name="item" value="<?php echo base64_encode("New Member"); ?>" size="25"><br/>
+	<input type="hidden" name="email" value="<?php echo base64_encode($Email);?>"><br/>
+</form>
+</div>
+<script>
+
+document.frmpay.submit();
+</script>
+<?php
+}
+?>
+</TD>
+</TR>
+<TR><TD colspan="2"> <?php require "../../footer.php"; ?></TD></TR>
+</Table>

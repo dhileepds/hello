@@ -1,0 +1,159 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <img alt="image" class="img-responsive" src="<%= image_url 'headerlogo.jpg' %> " height="50px" />
+        <!--  <div class="col-lg-6">
+        <img alt="image" src="<%= image_url 'l3.jpg' %>" style="margin-left:-15px;" />
+        </div>
+        <div class="col-lg-2">
+        <img alt="image" src="<%= image_url 'l2.jpg' %>" style="align:center;"/>
+        </div>
+        <div class="col-lg-4">
+            <img alt="image" src="<%= image_url 'l1.jpg' %>" style="margin-top:15px;margin-left:220px;" />
+        </div>  -->
+        
+        <div class="clearfix"></div>
+         <ol class="breadcrumb">
+            <li>
+                <a href="<%= url_for :controller => 'source_data', :action => 'chart' %>">Dashboard</a>
+        </li>
+        <li>
+             <a href="<%= url_for :controller => 'source_data', :action => 'nsnlist' %>">CMM Searcher</a>
+        </li>
+        <li class="active">
+            <strong>View More Data</strong>
+        </li>
+    </ol>
+        
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+             <h2> View More Date </h2>
+                <table class="table table-bordered">
+                     <% @viewnsn.each do |v| %> 
+                        <tr>
+                            <th>TYPE</th>
+                            <td><%= v.TYPE %> </td>
+                        </tr>
+                        <tr> 
+                            <th>FSC</th>
+                            <td><%= v.FSC %> </td>
+                        </tr>
+                            <th>NIIN</th>
+                            <td><%= v.NIIN %> </td>
+                        <tr>
+                            <th>NSN</th>
+                            <td><%= v.NSN %> </td>
+                        </tr>
+                        
+                        <tr> 
+                             <th>RNFC_2920</th>
+                             <td><%= v.RNFC_2920 %> </td>
+                        </tr>
+                        <tr> 
+                            <th>RNCC_2910</th>
+                            <td><%= v.RNCC_2910 %> </td>
+                        </tr>
+                        <tr> 
+                             <th>RNVC_4780</th>
+                             <td><%= v.RNVC_4780 %> </td>
+                        </tr>
+                        <tr>
+                            <th>DAC_2640</th>
+                            <td><%= v.DAC_2640 %> </td>
+                        </tr>    
+                        <tr>
+                            <th>RNAAC_2900</th>
+                            <td><%= v.RNAAC_2900 %> </td>
+                        </tr>
+                        <tr>
+                            <th>RNSC_2923</th>
+                            <td><%= v.RNSC_2923 %> </td>
+                        </tr>
+                        <tr>
+                            <th>RNJC_2750</th>
+                            <td><%= v.RNJC_2750 %> </td>
+                        </tr>
+                        <tr>
+                            <th>CAGE_CD_9250</th>
+                            <td><%= v.CAGE_CD_9250 %> </td>
+                        </tr>      
+                        <tr>
+                            <th>REF_NBR_3570</th>
+                            <td><%= v.REF_NBR_3570 %> </td>
+                        </tr>
+                        <tr>
+                            <th>NAME</th> 
+                            <td><%= v.NAME %> </td>
+                        </tr>
+                        <tr>
+                            <th>SADC_4672</th>
+                            <td><%= v.SADC_4672 %> </td>
+                        </tr>
+                        <tr>
+                            <th>HCC_2579</th>
+                            <td><%= v.HCC_2579 %> </td>
+                        </tr>
+                        <tr>
+                            <th>MSDS_ID_9076</th>
+                            <td><%= v.MSDS_ID_9076 %> </td>
+                        </tr>
+                      <% end %>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+$(function() {
+
+    var updateOutput = function (e) {
+        var list = e.length ? e : $(e.target),
+                output = list.data('output');
+        if (window.JSON) {
+            output.val(window.JSON.stringify(list.nestable('serialize')));//, null, 2));
+        } else {
+            output.val('JSON browser support required for this demo.');
+        }
+    };
+    // activate Nestable for list 1
+    $('#nestable').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // activate Nestable for list 2
+    $('#nestable2').nestable({
+        group: 1
+    }).on('change', updateOutput);
+
+    // output initial serialised data
+    updateOutput($('#nestable').data('output', $('#nestable-output')));
+    updateOutput($('#nestable2').data('output', $('#nestable2-output')));
+
+    $('#nestable-menu').on('click', function (e) {
+        var target = $(e.target),
+                action = target.data('action');
+        if (action === 'expand-all') {
+            $('.dd').nestable('expandAll');
+        }
+        if (action === 'collapse-all') {
+            $('.dd').nestable('collapseAll');
+        }
+    });
+
+});
+
+</script>
+
+<% end %>
+    
